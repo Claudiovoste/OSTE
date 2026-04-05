@@ -1,0 +1,34 @@
+[build]
+  functions = "netlify/functions"
+  publish   = "."
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options            = "DENY"
+    X-Content-Type-Options     = "nosniff"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+
+# ── API routes ──────────────────────────────────────────────────────────────
+[[redirects]]
+  from   = "/.netlify/functions/create-payment-intent"
+  to     = "/api/create-payment-intent"
+  status = 200
+
+[[redirects]]
+  from   = "/.netlify/functions/get-availability"
+  to     = "/api/get-availability"
+  status = 200
+
+[[redirects]]
+  from   = "/.netlify/functions/get-bookings"
+  to     = "/api/get-bookings"
+  status = 200
+
+[[redirects]]
+  from   = "/admin"
+  to     = "/admin.html"
+  status = 200

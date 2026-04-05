@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSTE Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--plum:#4B1F1F;--walnut:#7C5A42;--cream:#EDE9E4;--white:#FAF8F5;--terra:#C86B4A;--dark:#1a0f0f;--sage:#7B8A6F;--serif:'Cormorant Garamond',serif;--sans:'Jost',sans-serif}
+    body{background:#f0ece6;font-family:var(--sans);font-weight:300;color:var(--dark);min-height:100vh}
+
+    /* LOGIN */
+    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+    .login-card{background:var(--white);padding:48px;width:100%;max-width:400px}
+    .login-logo{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--plum);letter-spacing:0.1em;margin-bottom:8px}
+    .login-sub{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra);margin-bottom:36px}
+    .login-card input{width:100%;font-family:var(--sans);font-size:14px;font-weight:300;background:var(--cream);border:1px solid rgba(124,90,66,0.2);padding:14px 18px;outline:none;margin-bottom:12px;transition:border-color 0.2s}
+    .login-card input:focus{border-color:var(--terra)}
+    .login-card button{width:100%;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--white);background:var(--terra);border:none;padding:16px;cursor:pointer;transition:background 0.2s}
+    .login-card button:hover{background:var(--plum)}
+    .login-error{font-size:12px;color:#c0392b;margin-top:8px;display:none}
+
+    /* DASHBOARD */
+    .dashboard{display:none}
+    header{background:var(--dark);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between}
+    .header-logo{font-family:var(--serif);font-size:22px;color:var(--cream);letter-spacing:0.1em}
+    .header-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terra)}
+    .header-right{display:flex;align-items:center;gap:24px}
+    .btn-refresh{font-family:var(--sans);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,233,228,0.5);background:none;border:1px solid rgba(237,233,228,0.15);padding:7px 16px;cursor:pointer;transition:all 0.2s}
+    .btn-refresh:hover{color:var(--cream);border-color:rgba(237,233,228,0.4)}
+    .btn-logout{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,233,228,0.35);background:none;border:none;cursor:pointer;transition:color 0.2s}
+    .btn-logout:hover{color:var(--terra)}
+
+    .main{padding:40px}
+
+    /* STATS ROW */
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:32px}
+    .stat-card{background:var(--white);padding:28px 24px}
+    .stat-label{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+    .stat-value{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--plum);line-height:1}
+    .stat-sub{font-size:11px;color:var(--walnut);opacity:0.6;margin-top:6px}
+
+    /* DEPARTURES */
+    .section-title{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--plum);margin-bottom:16px}
+    .departures-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2px;margin-bottom:40px}
+    .dep-card{background:var(--white);padding:24px}
+    .dep-tour{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--terra);margin-bottom:6px}
+    .dep-dates{font-family:var(--serif);font-size:18px;font-weight:300;color:var(--plum);margin-bottom:12px}
+    .dep-bar-wrap{height:6px;background:var(--cream);border-radius:0;margin-bottom:8px;overflow:hidden}
+    .dep-bar{height:100%;background:var(--terra);transition:width 0.5s}
+    .dep-spots{font-size:12px;color:var(--walnut)}
+    .dep-revenue{font-size:13px;font-weight:500;color:var(--plum);margin-top:8px}
+
+    /* BOOKINGS TABLE */
+    .table-wrap{background:var(--white);overflow-x:auto}
+    table{width:100%;border-collapse:collapse}
+    th{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra);padding:14px 20px;text-align:left;border-bottom:1px solid var(--cream);white-space:nowrap}
+    td{font-size:13px;font-weight:300;color:var(--walnut);padding:14px 20px;border-bottom:1px solid rgba(124,90,66,0.08);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(237,233,228,0.3)}
+    .td-name{font-weight:400;color:var(--plum)}
+    .td-tour{font-size:11px}
+    .td-badge{display:inline-block;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:0}
+    .badge-paid{background:rgba(123,138,111,0.15);color:var(--sage)}
+    .td-amount{font-family:var(--serif);font-size:16px;font-weight:300;color:var(--plum)}
+
+    /* LOADING */
+    .loading{text-align:center;padding:60px;font-size:13px;color:var(--walnut);opacity:0.5}
+    .empty{text-align:center;padding:60px;font-family:var(--serif);font-size:20px;color:var(--walnut);opacity:0.5}
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-card">
+      <p class="login-logo">OSTE</p>
+      <p class="login-sub">Admin dashboard</p>
+      <input type="password" id="adminKey" placeholder="Admin password" onkeydown="if(event.key==='Enter')login()">
+      <button onclick="login()">Sign in</button>
+      <p class="login-error" id="loginError">Incorrect password</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <header>
+      <div>
+        <p class="header-logo">OSTE</p>
+        <p class="header-label">Bookings dashboard</p>
+      </div>
+      <div class="header-right">
+        <button class="btn-refresh" onclick="loadData()">↻ Refresh</button>
+        <button class="btn-logout" onclick="logout()">Sign out</button>
+      </div>
+    </header>
+
+    <div class="main">
+      <div id="content"><div class="loading">Loading bookings...</div></div>
+    </div>
+  </div>
+
+  <script>
+    const DEPARTURES_META = {
+      'fra-jun':  { tour:'Franciacorta', dates:'1–5 Jun 2026' },
+      'fra-jul':  { tour:'Franciacorta', dates:'6–10 Jul 2026' },
+      'eol-aug':  { tour:'Aeolian Islands', dates:'24–28 Aug 2026' },
+      'fra-sep1': { tour:'Franciacorta', dates:'14–18 Sep 2026' },
+      'fra-sep2': { tour:'Franciacorta', dates:'21–25 Sep 2026' },
+      'gar-sep':  { tour:'Lake Garda', dates:'28 Sep–2 Oct 2026' },
+      'par-oct':  { tour:'Cremona & Parma', dates:'5–9 Oct 2026' },
+      'gar-dec':  { tour:'Lake Garda', dates:'7–11 Dec 2026' },
+      'tre-dec':  { tour:'Trentino Christmas', dates:'19–23 Dec 2026' },
+    };
+
+    let adminKey = '';
+
+    function login() {
+      const key = document.getElementById('adminKey').value;
+      if (!key) return;
+      adminKey = key;
+      loadData();
+    }
+
+    function logout() {
+      adminKey = '';
+      document.getElementById('loginWrap').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('adminKey').value = '';
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch('/.netlify/functions/get-bookings', {
+          headers: { 'x-admin-key': adminKey }
+        });
+
+        if (res.status === 401) {
+          document.getElementById('loginError').style.display = 'block';
+          return;
+        }
+
+        const data = await res.json();
+
+        // Show dashboard
+        document.getElementById('loginWrap').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('loginError').style.display = 'none';
+
+        renderDashboard(data);
+
+      } catch (err) {
+        document.getElementById('content').innerHTML = `<div class="empty">Error loading data — ${err.message}</div>`;
+      }
+    }
+
+    function renderDashboard(data) {
+      const totalDeposit = data.total_deposit_collected || 0;
+      const totalRevenue = data.total_revenue || 0;
+      const totalGuests = data.bookings.reduce((s, b) => s + b.guests, 0);
+      const pendingBalance = totalRevenue - totalDeposit;
+
+      const html = `
+        <!-- STATS -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <p class="stat-label">Total bookings</p>
+            <p class="stat-value">${data.total_bookings}</p>
+            <p class="stat-sub">${totalGuests} guests total</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Deposits collected</p>
+            <p class="stat-value">€${totalDeposit.toLocaleString()}</p>
+            <p class="stat-sub">30% deposits received</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Balance pending</p>
+            <p class="stat-value">€${pendingBalance.toLocaleString()}</p>
+            <p class="stat-sub">Auto-charged 60 days before</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Total revenue</p>
+            <p class="stat-value">€${totalRevenue.toLocaleString()}</p>
+            <p class="stat-sub">When all balances paid</p>
+          </div>
+        </div>
+
+        <!-- DEPARTURES -->
+        <p class="section-title">Departures</p>
+        <div class="departures-grid">
+          ${Object.entries(DEPARTURES_META).map(([id, meta]) => {
+            const dep = data.byDeparture.find(d => d.departure_id === id);
+            const taken = dep ? dep.spots_taken : 0;
+            const revenue = dep ? dep.total_revenue : 0;
+            const pct = Math.round((taken / 8) * 100);
+            return `
+              <div class="dep-card">
+                <p class="dep-tour">${meta.tour}</p>
+                <p class="dep-dates">${meta.dates}</p>
+                <div class="dep-bar-wrap"><div class="dep-bar" style="width:${pct}%"></div></div>
+                <p class="dep-spots">${taken}/8 spots taken · ${8 - taken} remaining</p>
+                ${revenue > 0 ? `<p class="dep-revenue">€${revenue.toLocaleString()} expected</p>` : ''}
+              </div>`;
+          }).join('')}
+        </div>
+
+        <!-- BOOKINGS TABLE -->
+        <p class="section-title">All bookings</p>
+        ${data.bookings.length === 0 ? '<div class="empty">No bookings yet</div>' : `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Journey</th>
+                <th>Departure</th>
+                <th>Guests</th>
+                <th>Total</th>
+                <th>Deposit</th>
+                <th>Balance</th>
+                <th>Status</th>
+                <th>Booked</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.bookings.map(b => `
+                <tr>
+                  <td><p class="td-name">${b.name}</p><p style="font-size:11px;color:var(--walnut);opacity:0.6;">${b.email}</p></td>
+                  <td class="td-tour">${b.tour}</td>
+                  <td class="td-tour">${b.date_from}</td>
+                  <td>${b.guests}</td>
+                  <td class="td-amount">€${b.total.toLocaleString()}</td>
+                  <td class="td-amount">€${b.deposit.toLocaleString()}</td>
+                  <td class="td-amount">€${b.balance.toLocaleString()}</td>
+                  <td><span class="td-badge badge-paid">Deposit paid</span></td>
+                  <td style="font-size:11px;">${b.booked_at}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`}
+      `;
+
+      document.getElementById('content').innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
