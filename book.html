@@ -919,22 +919,8 @@
       const deposit = Math.round(total * 0.3);
       const balance = total - deposit;
       try {
-        const res = await fetch('/.netlify/functions/create-payment-intent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            departure_id: selectedDeparture.id,
-            tour: selectedDeparture.name,
-            date_from: selectedDeparture.dateFrom,
-            date_to: selectedDeparture.dateTo,
-            guests,
-            name: fname + ' ' + lname,
-            email,
-            phone: getLeadPhone(),
-            country: document.getElementById('country').value,
-            notes: document.getElementById('notes').value,
-            total, deposit, balance,
-            guests_data: collectGuestsData()
+        const stripeLink = `https://buy.stripe.com/test_9B6bJ118Y4ie3hN4xp53O00?prefilled_amount=${deposit * 100}&prefilled_email=${encodeURIComponent(email)}`;
+window.location.href = stripeLink;
           })
         });
         const json = await res.json();
