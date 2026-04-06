@@ -200,4 +200,4 @@ function json(data, status = 200) {
   });
 }
 
-export const config = { path: '/api/create-payment-intent' };
+export const config = { path: '/netlify/functions/create-payment-intent' };
