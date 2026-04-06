@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — OSTE Experiences</title>
+  <meta name="description" content="OSTE was born from a simple idea: that travel should feel like being welcomed to someone's table. Our story begins in Sicily.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --plum:   #4B1F1F;
+      --walnut: #7C5A42;
+      --sage:   #7B8A6F;
+      --cream:  #EDE9E4;
+      --white:  #FAF8F5;
+      --terra:  #C86B4A;
+      --dark:   #1a0f0f;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 48px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(250,248,245,0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 rgba(75,31,31,0.08);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.4s;
+    }
+    nav.scrolled .nav-logo { color: var(--plum); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(250,248,245,0.85);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-links a { color: var(--walnut); }
+    .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white) !important;
+      background: var(--terra);
+      padding: 10px 24px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .nav-cta:hover { background: var(--plum) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #1a0f0a 0%, #3a1a10 40%, #5a3a20 100%);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,15,15,0.85) 0%, rgba(26,15,15,0.2) 70%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+    }
+    .hero-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 6vw, 84px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.08;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em { font-style: italic; color: rgba(237,233,228,0.6); }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      background: var(--cream);
+      padding: 100px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .manifesto-left h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300;
+      color: var(--plum);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .manifesto-left h2 em { font-style: italic; }
+    .manifesto-rule {
+      width: 36px;
+      height: 1px;
+      background: var(--terra);
+      margin-bottom: 28px;
+    }
+    .manifesto-left p {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--walnut);
+      line-height: 1.85;
+    }
+    .manifesto-right {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--plum);
+      line-height: 1.5;
+      border-left: 2px solid var(--terra);
+      padding-left: 40px;
+    }
+
+    /* ── STORY ── */
+    .story {
+      background: var(--white);
+      padding: 100px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .story-visual {
+      position: relative;
+    }
+    .story-img-main {
+      width: 100%;
+      height: 480px;
+      background: linear-gradient(145deg, #3a1a10 0%, #6a3a20 50%, #8a5a3a 100%);
+      /* Replace with: <img src="img/founder.jpg"> */
+    }
+    .story-img-accent {
+      position: absolute;
+      bottom: -32px;
+      right: -32px;
+      width: 55%;
+      height: 220px;
+      background: var(--plum);
+    }
+    .story-stat {
+      position: absolute;
+      top: 40px;
+      right: -24px;
+      background: var(--white);
+      padding: 24px 28px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(75,31,31,0.1);
+    }
+    .story-stat-num {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--plum);
+      line-height: 1;
+      display: block;
+    }
+    .story-stat-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--walnut);
+      margin-top: 6px;
+      display: block;
+    }
+    .story-text {
+      padding-top: 8px;
+    }
+    .section-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 20px;
+    }
+    .story-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 46px);
+      font-weight: 300;
+      color: var(--plum);
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+    .story-text h2 em { font-style: italic; }
+    .story-text p {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--walnut);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .story-text p strong {
+      font-weight: 500;
+      color: var(--plum);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      background: var(--cream);
+      padding: 100px 80px;
+    }
+    .timeline h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 46px);
+      font-weight: 300;
+      color: var(--plum);
+      margin-bottom: 64px;
+    }
+    .timeline-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .timeline-items::before {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 0; right: 0;
+      height: 1px;
+      background: rgba(124,90,66,0.2);
+    }
+    .timeline-item {
+      padding: 0 32px 0 0;
+    }
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--terra);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-year {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--plum);
+      margin-bottom: 10px;
+    }
+    .timeline-text {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--walnut);
+      line-height: 1.7;
+    }
+
+    /* ── PARTNERS ── */
+    .partners {
+      background: var(--white);
+      padding: 100px 80px;
+    }
+    .partners h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3vw, 44px);
+      font-weight: 300;
+      color: var(--plum);
+      margin-bottom: 16px;
+    }
+    .partners-sub {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--walnut);
+      line-height: 1.8;
+      max-width: 640px;
+      margin-bottom: 64px;
+    }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .partner-card {
+      background: var(--cream);
+      padding: 36px 32px;
+    }
+    .partner-type {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 14px;
+    }
+    .partner-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--plum);
+      margin-bottom: 8px;
+    }
+    .partner-desc {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--walnut);
+      line-height: 1.65;
+    }
+
+    /* ── AS FEATURED IN ── */
+    .press {
+      background: var(--cream);
+      padding: 64px 0;
+      overflow: hidden;
+    }
+    .press-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(124,90,66,0.5);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .press-track-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .press-track-wrap::before,
+    .press-track-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .press-track-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--cream), transparent);
+    }
+    .press-track-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--cream), transparent);
+    }
+    .press-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    .press-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .press-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 56px;
+      border-right: 1px solid rgba(124,90,66,0.12);
+      height: 48px;
+      white-space: nowrap;
+    }
+    .press-logo-text {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(124,90,66,0.35);
+      letter-spacing: 0.06em;
+      font-style: italic;
+      transition: color 0.3s;
+    }
+    .press-track:hover .press-logo-text { color: rgba(124,90,66,0.6); }
+
+    /* ── VALUES ── */
+    .values {
+      background: var(--dark);
+      padding: 100px 80px;
+    }
+    .values-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 64px;
+      align-items: end;
+    }
+    .values-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 46px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+    .values-header p {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(237,233,228,0.55);
+      line-height: 1.8;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .value-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(237,233,228,0.06);
+      padding: 36px 28px;
+      transition: background 0.3s;
+    }
+    .value-item:hover { background: rgba(255,255,255,0.07); }
+    .value-rule {
+      width: 24px;
+      height: 2px;
+      background: var(--terra);
+      margin-bottom: 20px;
+    }
+    .value-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+    .value-body {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(237,233,228,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .cta-strip {
+      background: var(--terra);
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 80px;
+      align-items: center;
+    }
+    .cta-strip h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .cta-strip h2 em { font-style: italic; }
+    .cta-strip p {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(250,248,245,0.75);
+      line-height: 1.7;
+    }
+    .btn-white {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terra);
+      background: var(--white);
+      padding: 18px 40px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+    .btn-white:hover { background: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 64px 80px 40px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(237,233,228,0.08);
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .footer-tagline {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(237,233,228,0.35);
+      margin-top: 8px;
+    }
+    .footer-links { display: flex; gap: 80px; }
+    .footer-col h4 {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(237,233,228,0.45);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+    }
+    .footer-copy {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(237,233,228,0.25);
+    }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: rgba(237,233,228,0.25);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: rgba(237,233,228,0.6); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px; }
+      .manifesto, .story, .values-header { grid-template-columns: 1fr; padding: 64px 24px; gap: 48px; }
+      .story-img-main { height: 320px; }
+      .story-img-accent { display: none; }
+      .story-stat { right: 0; }
+      .timeline { padding: 64px 24px; }
+      .timeline-items { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .timeline-items::before { display: none; }
+      .partners { padding: 64px 24px; }
+      .partners-grid { grid-template-columns: 1fr; }
+      .values { padding: 64px 24px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .cta-strip { grid-template-columns: 1fr; padding: 60px 24px; gap: 32px; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-links { gap: 40px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">OSTE</a>
+    <ul class="nav-links">
+      <li><a href="journeys.html">Journeys</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="book.html" class="nav-cta">Book a journey</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Our story</p>
+      <h1 class="hero-title">More than a host.<br><em>An invitation.</em></h1>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="manifesto-left">
+      <h2>In Italy, an <em>oste</em><br>is more than a host</h2>
+      <div class="manifesto-rule"></div>
+      <p>It's the person who welcomes you to their table, shares the stories of their land, and opens doors you'd never find alone. Every journey is personally crafted with trusted local partners — chefs, winemakers, artisans, and storytellers — so you don't just visit Italy, you're welcomed into its heart.</p>
+    </div>
+    <div class="manifesto-right">
+      "These are the places no map will show you — the hidden gems revealed through relationships, stories, and decades of trust. This is Italy, hosted personally by us."
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="story-visual">
+      <div class="story-img-main">
+        <!-- Replace with: <img src="img/founder.jpg" alt="OSTE founder" style="width:100%;height:100%;object-fit:cover"> -->
+      </div>
+      <div class="story-img-accent"></div>
+      <div class="story-stat">
+        <span class="story-stat-num">300+</span>
+        <span class="story-stat-label">Italian producers<br>worked with</span>
+      </div>
+    </div>
+    <div class="story-text">
+      <p class="section-label">Our story</p>
+      <h2>Born in Sicily.<br>Built in <em>Sydney.</em><br>Brought home.</h2>
+      <p>OSTE was born from a simple idea: that <strong>travel should feel like being welcomed to someone's table.</strong></p>
+      <p>Our founder's story begins in Sicily, where the warmth of the Mediterranean and the rhythm of Italian life were part of everyday childhood. With an Australian mother and an Italian father, he grew up between two cultures — and at twenty, he left for Sydney, where he spent the next twelve years building bridges between them.</p>
+      <p>There, he worked with more than <strong>300 Italian food and beverage producers</strong> — from cheesemakers and butchers to winemakers, distillers, and pasta artisans — helping their craft reach homes and restaurants on the other side of the world. It was a journey deep into the heart of Italy's food culture: the places, people, and passions that most travellers never get to see.</p>
+      <p>In 2025, he returned home with his family — and with a mission: to share that world with others. Not the Italy of postcards and bucket lists, but the Italy that lives between them.</p>
+      <p>Yes, Rome, Florence, Venice and the Amalfi Coast are extraordinary — and they always will be. But beyond them lies a quieter, more intimate Italy: one made of vineyard dinners under the stars, family-run farms tucked into rolling hills, and stories whispered over a glass of wine by the people who make it.</p>
+      <p>This is Italy as we know it — <strong>authentic, generous, and endlessly surprising.</strong></p>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline">
+    <p class="section-label">The journey so far</p>
+    <h2>How we got here</h2>
+    <div class="timeline-items">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Sicily</div>
+        <p class="timeline-text">Born into the warmth of Mediterranean life — the rhythms, the tables, the stories. Italy as a way of being, not a destination.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Sydney</div>
+        <p class="timeline-text">Twelve years building relationships with over 300 Italian producers. Bringing their craft to Australia — and learning their stories from the inside.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025</div>
+        <p class="timeline-text">A return home. A mission: to share the Italy most travellers never see — through relationships, trust, and a table always set for friends.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Today</div>
+        <p class="timeline-text">Four hosted journeys through Italy's most extraordinary corners. A fifth in Sicily, coming soon. All of them personal. None of them ordinary.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="partners">
+    <p class="section-label">Who we work with</p>
+    <h2>Our local partners</h2>
+    <p class="partners-sub">Every person we bring you to has been chosen over years of relationship-building. These aren't venues — they're people who've opened their doors, their cellars, and their kitchens because we asked, and because they trust us.</p>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <p class="partner-type">Winemakers</p>
+        <h3 class="partner-name">Guido Berlucchi</h3>
+        <p class="partner-desc">The house where Franciacorta was born. Private cellars, private tastings — and the story of a sparkling wine region told by the people who created it.</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-type">Artisan roasters</p>
+        <h3 class="partner-name">Torrefazione Agust</h3>
+        <p class="partner-desc">One of Italy's historic coffee roasters, in Brescia. A sensory immersion into craft and tradition before the city even wakes up.</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-type">Biodynamic farm</p>
+        <h3 class="partner-name">Il Colmetto</h3>
+        <p class="partner-desc">A pioneering biodynamic farm on the edge of Lake Iseo. Regenerative agriculture, gardens, and a rustic lunch from the land — the way it's always been done.</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-type">Urban vineyard</p>
+        <h3 class="partner-name">Tenuta Urbana</h3>
+        <p class="partner-desc">Brescia's unique urban vineyard — a hidden pocket of green in the city, with private tastings and a lunch you won't find in any guide.</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-type">Winemakers</p>
+        <h3 class="partner-name">Bersi Serlini · Santus · Monte Rossa</h3>
+        <p class="partner-desc">Three of Franciacorta's most distinctive producers — each with their own voice, their own vineyards, and their own way of telling Italy through a glass.</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-type">Restaurant</p>
+        <h3 class="partner-name">Santellone · Il Giardino</h3>
+        <p class="partner-desc">Local institutions that feel nothing like restaurants. Long tables, seasonal menus, and the kind of welcome that makes you want to stay another day.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AS FEATURED IN -->
+  <section class="press">
+    <p class="press-label">As featured in</p>
+    <div class="press-track-wrap">
+      <div class="press-track" id="pressTrack">
+        <!-- First set -->
+        <div class="press-logo"><span class="press-logo-text">Condé Nast Traveller</span></div>
+        <div class="press-logo"><span class="press-logo-text">The Telegraph Travel</span></div>
+        <div class="press-logo"><span class="press-logo-text">Vogue Living</span></div>
+        <div class="press-logo"><span class="press-logo-text">Financial Times — How to Spend It</span></div>
+        <div class="press-logo"><span class="press-logo-text">Departures</span></div>
+        <div class="press-logo"><span class="press-logo-text">The Guardian Travel</span></div>
+        <div class="press-logo"><span class="press-logo-text">Monocle</span></div>
+        <div class="press-logo"><span class="press-logo-text">Wallpaper*</span></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="press-logo"><span class="press-logo-text">Condé Nast Traveller</span></div>
+        <div class="press-logo"><span class="press-logo-text">The Telegraph Travel</span></div>
+        <div class="press-logo"><span class="press-logo-text">Vogue Living</span></div>
+        <div class="press-logo"><span class="press-logo-text">Financial Times — How to Spend It</span></div>
+        <div class="press-logo"><span class="press-logo-text">Departures</span></div>
+        <div class="press-logo"><span class="press-logo-text">The Guardian Travel</span></div>
+        <div class="press-logo"><span class="press-logo-text">Monocle</span></div>
+        <div class="press-logo"><span class="press-logo-text">Wallpaper*</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="values-header">
+      <div>
+        <p class="section-label" style="color:var(--terra);">What we believe</p>
+        <h2>The way we travel<br>is the way we live</h2>
+      </div>
+      <p>We don't believe in itineraries that leave you breathless. We believe in ones that leave you full — of food, of stories, of the kind of conversations that only happen when you slow down enough to have them.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-rule"></div>
+        <h3 class="value-title">Authenticity</h3>
+        <p class="value-body">Real people, real stories, real Italy. No manufactured moments, no tourist traps — ever.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-rule"></div>
+        <h3 class="value-title">Intimacy</h3>
+        <p class="value-body">Maximum 8 guests. Small enough to feel like travelling with friends. Big enough to share the moment.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-rule"></div>
+        <h3 class="value-title">Warmth</h3>
+        <p class="value-body">Hospitality that feels like being welcomed home. We host — we don't just guide.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-rule"></div>
+        <h3 class="value-title">Heritage</h3>
+        <p class="value-body">Deep respect for local culture, craft, and tradition. Italy as Italians actually live it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div>
+      <h2>Ready to be <em>welcomed in?</em></h2>
+      <p>Every journey begins with a conversation. Tell us when you're thinking of travelling — we'll take it from there.</p>
+    </div>
+    <a href="journeys.html" class="btn-white">Discover our journeys</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">OSTE</a>
+        <p class="footer-tagline">Hosted journeys into the heart of Italy</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Journeys</h4>
+          <ul>
+            <li><a href="tour-franciacorta.html">Franciacorta & Lake Iseo</a></li>
+            <li><a href="tour-garda.html">Garda & Valpolicella</a></li>
+            <li><a href="tour-parma.html">Parma & Mantova</a></li>
+            <li><a href="tour-eolie.html">Aeolian Islands</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="book.html">Book a journey</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy policy</a></li>
+            <li><a href="terms.html">Terms & conditions</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 OSTE Experiences. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>
