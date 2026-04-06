@@ -905,23 +905,22 @@
     cardElement.on('blur', () => document.getElementById('cardWrap').classList.remove('focused'));
     cardElement.on('change', e => { document.getElementById('card-errors').textContent = e.error ? e.error.message : ''; checkReady(); });
 
-    async function handlePayment(e) {
-      e.preventDefault();
-      const fname = document.getElementById('fname').value.trim();
-      const lname = document.getElementById('lname').value.trim();
-      const email = document.getElementById('email').value.trim();
-      if (!fname || !lname || !email) { alert('Please fill in your name and email.'); return; }
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      document.getElementById('submitLabel').textContent = 'Processing...';
-      const guests = parseInt(document.getElementById('guests').value);
-      const total = selectedDeparture.price * guests;
-      const deposit = Math.round(total * 0.3);
-      const balance = total - deposit;
-      try {
-        const stripeLink = `https://buy.stripe.com/test_9B6bJ118Y4ie3hN4xp53O00?prefilled_amount=${deposit * 100}&prefilled_email=${encodeURIComponent(email)}`;
-window.location.href = stripeLink;
-          })
+   async function handlePayment(e) {
+  e.preventDefault();
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!fname || !lname || !email) { alert('Please fill in your name and email.'); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  document.getElementById('submitLabel').textContent = 'Processing...';
+  const guests = parseInt(document.getElementById('guests').value);
+  const total = selectedDeparture.price * guests;
+  const deposit = Math.round(total * 0.3);
+  const balance = total - deposit;
+  const stripeLink = `https://buy.stripe.com/test_9B6bJ118Y4ie3hN4xp53O00?prefilled_amount=${deposit * 100}&prefilled_email=${encodeURIComponent(email)}`;
+  window.location.href = stripeLink;
+})
         });
         const json = await res.json();
         if (json.error) throw new Error(json.error);
