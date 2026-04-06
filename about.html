@@ -502,48 +502,7 @@
       color: rgba(237,233,228,0.5);
       line-height: 1.7;
     }
-    /* ── HAMBURGER NAV ── */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
-}
-.nav-toggle span {
-  display: block;
-  width: 24px;
-  height: 1.5px;
-  background: var(--chianti);
-  transition: all 0.3s;
-}
-.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav-toggle.open span:nth-child(2) { opacity: 0; }
-.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-@media (max-width: 768px) {
-  nav { position: relative; }
-  .nav-toggle { display: flex; }
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: var(--soft-white, #FAF8F5);
-    border-bottom: 1px solid var(--limestone, #EDE9E4);
-    padding: 8px 0;
-    z-index: 99;
-  }
-  .nav-links.open { display: flex; }
-  .nav-links li { border-bottom: 1px solid var(--limestone, #EDE9E4); }
-  .nav-links li:last-child { border-bottom: none; }
-  .nav-links a { display: block; padding: 14px 24px; font-size: 13px; }
-}
     /* ── CTA ── */
     .cta-strip {
       background: var(--terra);
@@ -688,18 +647,7 @@
       <li><a href="book.html" class="nav-cta">Book a journey</a></li>
     </ul>
   </nav>
-<nav>
-  <a href="..." class="nav-logo">OSTE</a>
 
-  <!-- ADD THIS -->
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-
-  <ul class="nav-links" id="navLinks">
-    <!-- your existing links, unchanged -->
-  </ul>
-</nav>
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
@@ -931,12 +879,6 @@
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
   </script>
-<script>
-  document.getElementById('navToggle').addEventListener('click', function() {
-    this.classList.toggle('open');
-    document.getElementById('navLinks').classList.toggle('open');
-  });
-</script>
-  
+
 </body>
 </html>
